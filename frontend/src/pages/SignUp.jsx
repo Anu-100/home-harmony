@@ -50,20 +50,12 @@ const SignUp = () => {
         <button disabled={loading} className='p-3 rounded-lg bg-slate-900 text-white uppercase disabled:opacity-80 hover:opacity-95'>
           { loading ? 'Loading...' : 'Submit'}
         </button>
-        <button type='submit' className='border p-3 rounded-lg bg-red-700 text-white uppercase'>Continue with Google</button>
       </form>
-      <div className='flex justify-between mt-5'>
       <div className='flex gap-2'>
         <p>Have an account?</p>
         <Link to='/sign-in'>
           <span className='text-blue-700'>Sign In</span>
         </Link>
-      </div>
-      <div >
-        <Link to='/reset-password'>
-          <span className='text-blue-700'>Forgot Password?</span>
-        </Link>
-      </div>
       </div>
       {error && <p className='text-red-600'>{error}</p>}
     </div>
