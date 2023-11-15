@@ -14,6 +14,10 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    avatar: {
+        type: String,
+        default: "https://res.cloudinary.com/dqvpcvlxy/image/upload/v1700067232/real-estate-app/images_dojhwy.png"
     }
 }, { timestamps: true })
 
