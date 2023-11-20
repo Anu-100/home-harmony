@@ -66,7 +66,7 @@ const Profile = () => {
         />
         <img
           onClick={()=>fileRef.current.click()}
-          className="rounded-full h-20 w-20 self-center object-cover mt-3"
+          className="rounded-full h-20 w-20 self-center object-cover mt-3 hover:cursor-pointer"
           src={formData.avatar || currentUser.avatar}
           alt="profile"
         />
