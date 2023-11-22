@@ -11,6 +11,9 @@ import {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 
@@ -23,6 +26,7 @@ const Profile = () => {
   const [uploadError, setUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const [ updateSuccess, setUpdateSuccess ] = useState(false)
+  const [ updateError, setUpdateError ] = useState('')
 
   const fileUpload = (file) => {
     const storage = getStorage(app);
@@ -77,14 +81,32 @@ const Profile = () => {
       const data = await res.json()
       if(data.success === false){
         dispatch(updateUserFailure(data.message))
+        setUpdateError(data.message)
         return
       }
       dispatch(updateUserSuccess(data))
       setUpdateSuccess(true)
     } catch (error) {
       dispatch(updateUserFailure(error.message))
+      setUpdateError(error.message)
     }
   };
+  const handleDeleteAccount = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`api/users/delete/${currentUser._id}`, {
+        method: 'DELETE'
+      })
+      const data = await res.json()
+      if(data.success === false){
+        dispatch(deleteUserFailure(data.message))
+        return
+      }
+      dispatch(deleteUserSuccess(data))
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message))
+    }
+  }
   return (
     <div className="mx-auto max-w-lg p-3">
       <h1 className="text-3xl text-center font-semibold my-7">Profile</h1>
@@ -138,9 +160,10 @@ const Profile = () => {
         </button>
       </form>
       <div className="flex justify-between mt-5">
-        <span className="text-red-700">Delete Account</span>
-        <span className="text-blue-800">Sign Out</span>
+        <span onClick={handleDeleteAccount} className="text-red-700 hover:cursor-pointer">Delete Account</span>
+        <span className="text-blue-800 hover:cursor-pointer">Sign Out</span>
       </div>
+      <p className="text-red-700">{updateError ? updateError : ""}</p>
       <p className="text-green-700">{updateSuccess ? "User is updated successfully!" : ""}</p>
     </div>
   );

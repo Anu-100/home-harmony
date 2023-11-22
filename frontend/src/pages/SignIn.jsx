@@ -41,13 +41,14 @@ const SignIn = () => {
       dispatch(signInFailure(error.message));
     }
   };
+  
   return (
     <div className='p-3 mx-auto max-w-lg'>
       <h1 className='text-3xl text-center font-semibold my-7'>Sign In</h1>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
         <input type='email' placeholder='Email' className='border p-3 rounded-lg focus:outline-none' id='email' onChange={handleChange} />
         <input type='password' placeholder='Password' className='border p-3 rounded-lg focus:outline-none' id='password' onChange={handleChange} />
-        <button disabled={loading} className='p-3 rounded-lg bg-slate-900 text-white uppercase disabled:opacity-80 hover:opacity-95'>
+        <button disabled={loading || !formData.email || !formData.password} className='p-3 rounded-lg bg-slate-900 text-white uppercase disabled:opacity-80 hover:opacity-95'>
           { loading ? 'Loading...' : 'Login'}
         </button>
         <OAuth />
