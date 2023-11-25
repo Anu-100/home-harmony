@@ -22,15 +22,15 @@ import {
 import { useDispatch } from "react-redux";
 
 const Profile = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const fileRef = useRef(null);
   const [file, setFile] = useState(undefined);
   const [filePercentage, setFilePercentage] = useState(0);
   const [uploadError, setUploadError] = useState(false);
   const [formData, setFormData] = useState({});
-  const [ updateSuccess, setUpdateSuccess ] = useState(false)
-  const [ updateError, setUpdateError ] = useState('')
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [updateError, setUpdateError] = useState("");
 
   const fileUpload = (file) => {
     const storage = getStorage(app);
@@ -74,57 +74,57 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      dispatch(updateUserStart())
-      const res = await fetch(`api/users/update/${currentUser._id}`,{
+      dispatch(updateUserStart());
+      const res = await fetch(`api/users/update/${currentUser._id}`, {
         method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData)
-      })
-      const data = await res.json()
-      if(data.success === false){
-        dispatch(updateUserFailure(data.message))
-        setUpdateError(data.message)
-        return
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(updateUserFailure(data.message));
+        setUpdateError(data.message);
+        return;
       }
-      dispatch(updateUserSuccess(data))
-      setUpdateSuccess(true)
+      dispatch(updateUserSuccess(data));
+      setUpdateSuccess(true);
     } catch (error) {
-      dispatch(updateUserFailure(error.message))
-      setUpdateError(error.message)
+      dispatch(updateUserFailure(error.message));
+      setUpdateError(error.message);
     }
   };
   const handleDeleteAccount = async () => {
     try {
       dispatch(deleteUserStart());
       const res = await fetch(`api/users/delete/${currentUser._id}`, {
-        method: 'DELETE'
-      })
-      const data = await res.json()
-      if(data.success === false){
-        dispatch(deleteUserFailure(data.message))
-        return
-      }
-      dispatch(deleteUserSuccess(data))
-    } catch (error) {
-      dispatch(deleteUserFailure(error.message))
-    }
-  }
-  const handleSignOut = async() => {
-    try {
-      dispatch(signOutStart())
-      const res = await fetch('api/auth/sign-out')
-      const data = await res.json()
-      if(data.success === false){
-        dispatch(signOutFailure(data.message))
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
         return;
       }
-      dispatch(signOutSuccess(data))
+      dispatch(deleteUserSuccess(data));
     } catch (error) {
-      dispatch(signOutFailure(error.message))
+      dispatch(deleteUserFailure(error.message));
     }
-  }
+  };
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutStart());
+      const res = await fetch("api/auth/sign-out");
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signOutFailure(data.message));
+        return;
+      }
+      dispatch(signOutSuccess(data));
+    } catch (error) {
+      dispatch(signOutFailure(error.message));
+    }
+  };
   return (
     <div className="mx-auto max-w-lg p-3">
       <h1 className="text-3xl text-center font-semibold my-7">Profile</h1>
@@ -176,16 +176,31 @@ const Profile = () => {
         <button className="bg-blue-800 text-white p-3 rounded-lg">
           UPDATE
         </button>
-        <Link to='/create-listing' className="bg-green-700 hover:cursor-pointer uppercase p-3 rounded-lg text-white text-center">
+        <Link
+          to="/create-listing"
+          className="bg-green-700 hover:cursor-pointer uppercase p-3 rounded-lg text-white text-center"
+        >
           create listing
         </Link>
       </form>
       <div className="flex justify-between mt-5">
-        <span onClick={handleDeleteAccount} className="text-red-700 hover:cursor-pointer">Delete Account</span>
-        <span onClick={handleSignOut} className="text-blue-800 hover:cursor-pointer">Sign Out</span>
+        <span
+          onClick={handleDeleteAccount}
+          className="text-red-700 hover:cursor-pointer"
+        >
+          Delete Account
+        </span>
+        <span
+          onClick={handleSignOut}
+          className="text-blue-800 hover:cursor-pointer"
+        >
+          Sign Out
+        </span>
       </div>
       <p className="text-red-700">{updateError ? updateError : ""}</p>
-      <p className="text-green-700">{updateSuccess ? "User is updated successfully!" : ""}</p>
+      <p className="text-green-700">
+        {updateSuccess ? "User is updated successfully!" : ""}
+      </p>
     </div>
   );
 };
