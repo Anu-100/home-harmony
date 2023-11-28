@@ -1,9 +1,9 @@
 const error_handler = (statusCode, message) => {
-    const error = new Error();
-    error.statusCode = statusCode;
-    error.message = message;
+  const error = new Error();
+  error.statusCode = statusCode;
+  error.message = message;
 
-    return error;
+  return error;
 };
 
-export default error_handler
+export default error_handler;
