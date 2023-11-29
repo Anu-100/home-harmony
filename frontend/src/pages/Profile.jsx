@@ -155,7 +155,7 @@ const Profile = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   return (
     <div className="mx-auto max-w-lg p-3">
       <h1 className="text-3xl text-center font-semibold my-7">Profile</h1>
@@ -257,7 +257,7 @@ const Profile = () => {
               </Link>
               <div className="flex flex-col items-center">
                 <button onClick={()=>handleDeleteListing(listing._id)} className="text-red-700 uppercase text-sm font-semibold">Delete</button>
-                <button className="text-blue-700 uppercase text-sm font-semibold">Edit</button>
+                <Link to={`/edit-listing/${listing._id}`}><button className="text-blue-700 uppercase text-sm font-semibold">Edit</button></Link>
               </div>
             </div>
           ))

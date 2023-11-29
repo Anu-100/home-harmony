@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { app } from "../firebase";
 import {
   getDownloadURL,
@@ -7,10 +7,11 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const CreateListing = () => {
+const EditListing = () => {
   const navigate = useNavigate();
+  const params = useParams();
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageURLs: [],
@@ -31,7 +32,23 @@ const CreateListing = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
-  console.log(formData);
+  const listingId = params.listingId;
+  
+  useEffect(()=>{
+      const fetchListing = async () => {
+        const listingId = params.listingId;
+        console.log(listingId);
+        const res = await fetch(`/api/listing/get-listing/${listingId}`);
+        const data = await res.json();
+        if(data.success === false){
+            console.log(data.message);
+            return;
+        }
+        setFormData(data);
+    };
+    fetchListing();
+  },[])
+
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageURLs.length < 7) {
       setUploading(true);
@@ -55,10 +72,10 @@ const CreateListing = () => {
           setUploading(false);
         });
     } else if (files.length === 0) {
-      setImageUploadError("Please upload an image!!");
+      setImageUploadError("Please upload an image!");
       setUploading(false);
-    } else {
-      setImageUploadError("Maximum of 6 images can be uploaded!");
+    }else{
+      setImageUploadError("Maximum 6 images can be uploaded!");
       setUploading(false);
     }
   };
@@ -132,8 +149,8 @@ const CreateListing = () => {
         );
       setLoading(true);
       setError(false);
-      const res = await fetch("api/listing/create-listing", {
-        method: "POST",
+      const res = await fetch(`/api/listing/update-listing/${listingId}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -156,7 +173,7 @@ const CreateListing = () => {
   return (
     <main className="p-3 max-w-4xl mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">
-        Create a Listing
+        Update Listing
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
         <div className="flex flex-col gap-4 flex-1">
@@ -353,7 +370,7 @@ const CreateListing = () => {
               </div>
             ))}
           <button disabled={loading || uploading} className="p-3 bg-slate-800 text-white uppercase rounded-lg disabled:opacity-80 mt-4">
-            {loading ? "loading..." : "create listing"}
+            {loading ? "updating..." : "update listing"}
           </button>
           {error && (
             <p className="text-red-700 text-sm font-semibold">{error}</p>
@@ -364,4 +381,4 @@ const CreateListing = () => {
   );
 };
 
-export default CreateListing;
+export default EditListing;
