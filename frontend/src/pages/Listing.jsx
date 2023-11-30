@@ -14,6 +14,7 @@ import {
   FaParking,
   FaShare,
 } from "react-icons/fa";
+import Contact from "../components/Contact";
 
 const Listing = () => {
   const params = useParams();
@@ -146,6 +147,10 @@ const Listing = () => {
                 }
               </li>
             </ul>
+            { currentUser && listing.userRef !== currentUser._id && !contact && (
+              <button onClick={()=>setContact(true)} className="bg-slate-800 text-white uppercase rounded-lg text-sm p-3 mt-5">contact landlord</button>
+            )}
+            { contact && <Contact listing={listing} />}
           </div>
         </div>
       )}

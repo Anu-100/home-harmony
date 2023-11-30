@@ -40,7 +40,9 @@ export const deleteUserInfo = async (req, res, next) => {
     await User.findByIdAndDelete(req.params.id);
     res.clearCookie("access_token");
     res.status(200).json("User has been deleted successfully!");
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const getUserListings = async (req, res, next) => {
@@ -55,3 +57,16 @@ export const getUserListings = async (req, res, next) => {
     return next(error_handler(401, "You are unauthorized!"));
   }
 };
+
+export const getUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if(!user){
+      return next(error_handler(404, "User not found!"));
+    }
+    const { password: pass, ...other_info } = user._doc;
+    res.status(200).json(other_info);
+  } catch (error) {
+    next(error);
+  }
+}

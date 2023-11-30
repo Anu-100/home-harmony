@@ -77,7 +77,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const res = await fetch(`api/users/update/${currentUser._id}`, {
+      const res = await fetch(`/api/users/update/${currentUser._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -100,7 +100,7 @@ const Profile = () => {
   const handleDeleteAccount = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`api/users/delete/${currentUser._id}`, {
+      const res = await fetch(`/api/users/delete/${currentUser._id}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -116,7 +116,7 @@ const Profile = () => {
   const handleSignOut = async () => {
     try {
       dispatch(signOutStart());
-      const res = await fetch("api/auth/sign-out");
+      const res = await fetch("/api/auth/sign-out");
       const data = await res.json();
       if (data.success === false) {
         dispatch(signOutFailure(data.message));
@@ -130,7 +130,7 @@ const Profile = () => {
   const handleShowListings = async () => {
     try {
       setShowListingsError(false);
-      const res = await fetch(`api/users/user-listings/${currentUser._id}`);
+      const res = await fetch(`/api/users/user-listings/${currentUser._id}`);
       const data = await res.json();
       if (data.success === false) {
         setShowListingsError(true);
