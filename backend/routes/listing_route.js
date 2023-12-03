@@ -14,6 +14,6 @@ router.post("/create-listing", verifyToken, createListing);
 router.delete("/delete-listing/:id", verifyToken, deleleListing);
 router.put("/update-listing/:id", verifyToken, updateListing);
 router.get("/get-listing/:id", getListing);
-router.get("/all-listings", getAllListings);
+router.get("/all", getAllListings);
 
 export default router;

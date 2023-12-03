@@ -62,17 +62,17 @@ export const getAllListings = async (req, res, next) => {
     const startIndex = parseInt(req.query.startIndex) || 0;
 
     let offer = req.query.offer;
-    if(offer === false || offer === undefined){
+    if(offer === "false" || offer === undefined){
       offer = {$in: [false, true]};
     }
 
     let furnished = req.query.furnished;
-    if(furnished === false || furnished === undefined){
+    if(furnished === "false" || furnished === undefined){
       furnished = {$in: [false, true]};
     }
 
     let parking = req.query.furnished;
-    if(parking === false || parking === undefined){
+    if(parking === "false" || parking === undefined){
       parking = {$in: [false, true]};
     }
 
@@ -87,10 +87,10 @@ export const getAllListings = async (req, res, next) => {
 
     const listings = await Listing.find({
       name: {$regex: searchTerm, $options: 'i'},
+      type,
+      parking,
       offer,
       furnished,
-      parking,
-      type,
     }).sort({
       [sort]: order
     }).limit(limit).skip(startIndex);
