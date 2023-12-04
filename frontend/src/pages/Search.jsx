@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ListingCard from "../components/ListingCard";
 
 const Search = () => {
   const [sidebarData, setsidebarData] = useState({
@@ -28,7 +29,7 @@ const Search = () => {
 
     if (
       searchTermFromUrl ||
-      typeFromUrl ||
+      typeFromUrl || 
       furnishedFromUrl ||
       parkingFromUrl ||
       offerFromUrl ||
@@ -49,7 +50,7 @@ const Search = () => {
     const fetchListings = async () => {
       setLoading(true);
       const searchQuery = urlParams.toString();
-      const res = await fetch(`api/listing/all?${searchQuery}`);
+      const res = await fetch(`/api/listing/all?${searchQuery}`);
       const data = await res.json();
       setListings(data);
       setLoading(false);
@@ -205,10 +206,21 @@ const Search = () => {
           </button>
         </form>
       </div>
-      <div className="">
+      <div className="flex-1">
         <h1 className="border-b p-3 font-semibold text-3xl">
           Listing results:
         </h1>
+        <div className="p-7 flex flex-wrap gap-4">
+          {!loading && listings.length == 0 && (
+            <p className="text-slate-700 font-semibold text-xl text-center w-full">There are no listings!</p>
+          )}
+          {loading && (
+            <p className="text-xl text-slate-700 font-semibold text-center w-full">Loading...</p>
+          )}
+          {!loading && listings && listings.map((listing) => (
+            <ListingCard key={listing._id} listing={listing}/>
+          ))}
+        </div>
       </div>
     </div>
   );
