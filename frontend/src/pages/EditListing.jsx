@@ -298,7 +298,11 @@ const EditListing = () => {
               />
               <div className="flex flex-col items-center">
                 <p>Regular Price</p>
-                <span className="text-sm">(₹ / Month)</span>
+                {formData.type === "rent" ? (
+                  <span className="text-sm">(₹ / Month)</span>
+                ) : (
+                  <span className="text-sm">(in ₹)</span>
+                )}
               </div>
             </div>
             {formData.offer && (
@@ -313,9 +317,13 @@ const EditListing = () => {
                   value={formData.discountedPrice}
                   required
                 />
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center"> 
                   <p>Discounted Price</p>
+                  {formData.type === "rent" ? (
                   <span className="text-sm">(₹ / Month)</span>
+                ) : (
+                  <span className="text-sm">(in ₹)</span>
+                )}
                 </div>
               </div>
             )}

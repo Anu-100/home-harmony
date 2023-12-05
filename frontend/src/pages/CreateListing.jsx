@@ -281,7 +281,11 @@ const CreateListing = () => {
               />
               <div className="flex flex-col items-center">
                 <p>Regular Price</p>
-                <span className="text-sm">(Rs. / Month)</span>
+                {formData.type === "rent" ? (
+                  <span className="text-sm">(₹ / Month)</span>
+                ) : (
+                  <span className="text-sm">(in ₹)</span>
+                )}
               </div>
             </div>
             {formData.offer && (
@@ -298,7 +302,11 @@ const CreateListing = () => {
                 />
                 <div className="flex flex-col items-center">
                   <p>Discounted Price</p>
-                  <span className="text-sm">(Rs. / Month)</span>
+                  {formData.type === "rent" ? (
+                  <span className="text-sm">(₹ / Month)</span>
+                ) : (
+                  <span className="text-sm">(in ₹)</span>
+                )}
                 </div>
               </div>
             )}
@@ -352,7 +360,10 @@ const CreateListing = () => {
                 </button>
               </div>
             ))}
-          <button disabled={loading || uploading} className="p-3 bg-slate-800 text-white uppercase rounded-lg disabled:opacity-80 mt-4">
+          <button
+            disabled={loading || uploading}
+            className="p-3 bg-slate-800 text-white uppercase rounded-lg disabled:opacity-80 mt-4"
+          >
             {loading ? "loading..." : "create listing"}
           </button>
           {error && (
