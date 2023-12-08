@@ -85,16 +85,21 @@ const Home = () => {
             </SwiperSlide>
           ))}
       </Swiper>
-      <div className="mx-auto p-3 flex flex-col my-10 ml-[125px]">
+      <div className="p-3 flex flex-col my-10 ml-[125px]">
         {offerListings && offerListings.length > 0 && (
           <div className="">
             <div className="my-3">
               <h2 className="text-2xl font-bold">Recent Offers</h2>
-              <Link className="font-bold text-blue-800 hover:underline" to={"/search?offer=true"}>Show more offers</Link>
+              <Link
+                className="font-bold text-blue-800 hover:underline"
+                to={"/search?offer=true"}
+              >
+                Show more offers
+              </Link>
             </div>
             <div className="flex flex-wrap gap-6 mt-3">
               {offerListings.map((listing) => (
-                <ListingCard listing={listing} key={listing._id}/>
+                <ListingCard listing={listing} key={listing._id} />
               ))}
             </div>
           </div>
@@ -102,12 +107,19 @@ const Home = () => {
         {rentListings && rentListings.length > 0 && (
           <div className="">
             <div className="my-3">
-              <h2 className="text-2xl mt-5 font-bold">Recent places for rent</h2>
-              <Link className="font-bold text-blue-800 hover:underline" to={"/search?type=rent"}>Show more places for rent</Link>
+              <h2 className="text-2xl mt-5 font-bold">
+                Recent places for rent
+              </h2>
+              <Link
+                className="font-bold text-blue-800 hover:underline"
+                to={"/search?type=rent"}
+              >
+                Show more places for rent
+              </Link>
             </div>
             <div className="flex flex-wrap gap-6 mt-3">
               {rentListings.map((listing) => (
-                <ListingCard listing={listing} key={listing._id}/>
+                <ListingCard listing={listing} key={listing._id} />
               ))}
             </div>
           </div>
@@ -115,12 +127,19 @@ const Home = () => {
         {saleListings && saleListings.length > 0 && (
           <div className="">
             <div className="my-3">
-              <h2 className="text-2xl mt-5 font-bold">Recent places for sale</h2>
-              <Link className="font-bold text-blue-800 hover:underline" to={"/search?type=sale"}>Show more places for sale</Link>
+              <h2 className="text-2xl mt-5 font-bold">
+                Recent places for sale
+              </h2>
+              <Link
+                className="font-bold text-blue-800 hover:underline"
+                to={"/search?type=sale"}
+              >
+                Show more places for sale
+              </Link>
             </div>
             <div className="flex flex-wrap gap-6 mt-3">
               {saleListings.map((listing) => (
-                <ListingCard listing={listing} key={listing._id}/>
+                <ListingCard listing={listing} key={listing._id} />
               ))}
             </div>
           </div>
