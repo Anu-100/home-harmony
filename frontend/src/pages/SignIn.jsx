@@ -78,11 +78,6 @@ const SignIn = () => {
             <span className="text-blue-700">Sign Up</span>
           </Link>
         </div>
-        <div>
-          <Link to="/reset-password">
-            <span className="text-blue-700">Forgot Password?</span>
-          </Link>
-        </div>
       </div>
       {error && <p className="text-red-600">{error}</p>}
     </div>
