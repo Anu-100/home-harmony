@@ -1,4 +1,4 @@
-# HomeHarmony
+# Home Harmony
 
 HomeHarmony is a full-stack web application that offers users to explore, buy, sell and rent properties.Leveraging the MongoDB database for efficient data storage, Express.js for robust server-side handling, React for a dynamic and interactive user interface, and Node.js for backend functionality, this project embodies a comprehensive real estate solution.
 
